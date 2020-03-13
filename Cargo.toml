@@ -8,7 +8,18 @@ edition = "2018"
 [dependencies]
 anyhow = "1.0.26"
 derive_more = "0.99.3"
+serde_with = "1.4.0"
+serenity = "0.8.0"
+dotenv = "0.15.0"
 
 [dependencies.rss]
 version = "1.9.0"
 features = ["from_url"]
+
+[dependencies.serde]
+version = "1.0.104"
+features = ["derive"]
+
+[dependencies.attohttpc]
+version = "0.12.0"
+features = ["json"]
