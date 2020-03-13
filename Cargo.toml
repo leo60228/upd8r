@@ -12,6 +12,10 @@ serde_with = "1.4.0"
 serenity = "0.8.0"
 dotenv = "0.15.0"
 
+[dependencies.reqwest]
+version = "0.9.24"
+features = ["rustls-tls"]
+
 [dependencies.rss]
 version = "1.9.0"
 features = ["from_url"]
@@ -22,4 +26,4 @@ features = ["derive"]
 
 [dependencies.attohttpc]
 version = "0.12.0"
-features = ["json"]
+features = ["json", "tls-rustls"]
