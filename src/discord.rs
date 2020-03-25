@@ -32,7 +32,13 @@ pub fn event_loop(ctx: &Context) -> Result<!> {
         .ok_or_else(|| anyhow!("Channel {} not a guild channel!"))?;
 
     loop {
-        for media in &[Media::Homestuck2, Media::PQSteam, Media::HiveswapAct2] {
+        for media in &[
+            Media::Homestuck2,
+            Media::PQSteam,
+            Media::HiveswapAct2,
+            Media::PQTwitter,
+            Media::Homestuck2Bonus,
+        ] {
             println!("Checking for {} updates...", media);
             match check_for_update(media) {
                 Ok(Some(upd8)) => {

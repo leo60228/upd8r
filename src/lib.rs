@@ -19,6 +19,8 @@ pub mod twitter;
 pub enum Media {
     #[display(fmt = "Homestuck^2")]
     Homestuck2,
+    #[display(fmt = "Homestuck^2 bonus")]
+    Homestuck2Bonus,
     #[display(fmt = "PesterQuest")]
     PQSteam,
     #[display(fmt = "Hiveswap Act 2")]
@@ -40,6 +42,8 @@ impl Update {
     pub fn latest(&self) -> Result<bool> {
         static LATEST_HS2: AtomicU64 = AtomicU64::new(0);
         static LOAD_HS2: Once = Once::new();
+        static LATEST_HS2_BONUS: AtomicU64 = AtomicU64::new(0);
+        static LOAD_HS2_BONUS: Once = Once::new();
         static LATEST_PQ: AtomicU64 = AtomicU64::new(0);
         static LOAD_PQ: Once = Once::new();
         static LATEST_HIVESWAP_A2: AtomicU64 = AtomicU64::new(0);
@@ -48,6 +52,7 @@ impl Update {
         static LOAD_PQ_TWEET: Once = Once::new();
         let (latest, load, filename) = match self.media {
             Media::Homestuck2 => (&LATEST_HS2, &LOAD_HS2, "latest_hs2_upd8"),
+            Media::Homestuck2Bonus => (&LATEST_HS2_BONUS, &LOAD_HS2_BONUS, "latest_hs2_bonus_upd8"),
             Media::PQSteam => (&LATEST_PQ, &LOAD_PQ, "latest_pq_upd8"),
             Media::HiveswapAct2 => (
                 &LATEST_HIVESWAP_A2,
@@ -100,6 +105,12 @@ pub trait IntoUpdate {
     fn into_update(&self, media: &Media) -> Result<Update>;
 }
 
+impl IntoUpdate for Update {
+    fn into_update(&self, _: &Media) -> Result<Update> {
+        Ok(self.clone())
+    }
+}
+
 pub trait Feed: Sized {
     type Item: IntoUpdate;
 
@@ -115,7 +126,7 @@ macro_rules! upd8 {
 
 pub fn check_for_update(media: &Media) -> Result<Option<Update>> {
     let update = match media {
-        Media::Homestuck2 => upd8!(hs2::Hs2Feed, media),
+        Media::Homestuck2 | Media::Homestuck2Bonus => upd8!(hs2::Hs2Feed, media),
         Media::PQSteam | Media::HiveswapAct2 => upd8!(steam::AppNews, media),
         Media::PQTwitter => upd8!(twitter::TwitterFeed, media),
     };

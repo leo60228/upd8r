@@ -7,6 +7,7 @@ fn main() -> Result<()> {
         Media::PQSteam,
         Media::HiveswapAct2,
         Media::PQTwitter,
+        Media::Homestuck2Bonus,
     ] {
         println!("Checking for {} updates...", media);
         match check_for_update(media) {
