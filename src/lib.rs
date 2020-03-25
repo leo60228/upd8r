@@ -13,15 +13,18 @@ use std::sync::{
 pub mod discord;
 pub mod hs2;
 pub mod steam;
+pub mod twitter;
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Display)]
 pub enum Media {
     #[display(fmt = "Homestuck^2")]
     Homestuck2,
-    #[display(fmt = "Pesterquest")]
-    Pesterquest,
+    #[display(fmt = "PesterQuest")]
+    PQSteam,
     #[display(fmt = "Hiveswap Act 2")]
     HiveswapAct2,
+    #[display(fmt = "PesterQuest Twitter")]
+    PQTwitter,
 }
 
 #[derive(Clone, PartialEq, Eq, Hash, Debug)]
@@ -41,14 +44,17 @@ impl Update {
         static LOAD_PQ: Once = Once::new();
         static LATEST_HIVESWAP_A2: AtomicU64 = AtomicU64::new(0);
         static LOAD_HIVESWAP_A2: Once = Once::new();
+        static LATEST_PQ_TWEET: AtomicU64 = AtomicU64::new(0);
+        static LOAD_PQ_TWEET: Once = Once::new();
         let (latest, load, filename) = match self.media {
             Media::Homestuck2 => (&LATEST_HS2, &LOAD_HS2, "latest_hs2_upd8"),
-            Media::Pesterquest => (&LATEST_PQ, &LOAD_PQ, "latest_pq_upd8"),
+            Media::PQSteam => (&LATEST_PQ, &LOAD_PQ, "latest_pq_upd8"),
             Media::HiveswapAct2 => (
                 &LATEST_HIVESWAP_A2,
                 &LOAD_HIVESWAP_A2,
                 "latest_hiveswap_a2_upd8",
             ),
+            Media::PQTwitter => (&LATEST_PQ_TWEET, &LOAD_PQ_TWEET, "latest_pq_tweet"),
         };
         load.call_once(|| {
             let _: Result<()> = (|| {
@@ -110,7 +116,8 @@ macro_rules! upd8 {
 pub fn check_for_update(media: &Media) -> Result<Option<Update>> {
     let update = match media {
         Media::Homestuck2 => upd8!(hs2::Hs2Feed, media),
-        Media::Pesterquest | Media::HiveswapAct2 => upd8!(steam::AppNews, media),
+        Media::PQSteam | Media::HiveswapAct2 => upd8!(steam::AppNews, media),
+        Media::PQTwitter => upd8!(twitter::TwitterFeed, media),
     };
     if update.latest()? {
         Ok(Some(update))

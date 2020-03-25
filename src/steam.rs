@@ -53,7 +53,7 @@ impl Feed for AppNews {
 
     fn fetch(media: &Media) -> Result<Self> {
         let url = match media {
-            Media::Pesterquest => "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=1144030&count=999999&maxlength=1&format=json",
+            Media::PQSteam => "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=1144030&count=999999&maxlength=1&format=json",
             Media::HiveswapAct2 => "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=1181840&count=999999&maxlength=1&format=json",
             _ => return Err(anyhow!("{} not on Steam!")),
         };
