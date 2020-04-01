@@ -120,7 +120,11 @@ pub trait Feed: Sized {
 
 macro_rules! upd8 {
     ($feed:ty, $media:ident) => {
-        <$feed>::fetch($media)?.updates()[0].into_update($media)?
+        if let Some(upd8) = <$feed>::fetch($media)?.updates().get(0) {
+            upd8.into_update($media)?
+        } else {
+            return Ok(None);
+        }
     };
 }
 
