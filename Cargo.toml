@@ -3,6 +3,7 @@ name = "upd8r"
 version = "0.1.0"
 authors = ["leo60228 <iakornfeld@gmail.com>"]
 edition = "2018"
+default-run = "upd8r"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
@@ -16,6 +17,12 @@ tokio = "0.2"
 scraper = "0.11.0"
 chrono = "0.4.11"
 url = "2.1.1"
+crossbeam-channel = "0.4.2"
+
+[dependencies.elefren]
+version = "0.21.0"
+features = ["rustls-tls", "toml"]
+default-features = false
 
 [dependencies.reqwest]
 version = "0.9.24"

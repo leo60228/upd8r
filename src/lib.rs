@@ -11,7 +11,9 @@ use std::sync::{
 };
 
 pub mod discord;
+pub mod event_loop;
 pub mod hs2;
+pub mod mastodon;
 pub mod steam;
 pub mod twitter;
 

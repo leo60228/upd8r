@@ -74,6 +74,16 @@ dependencies = [
 
 [[package]]
 name = "base64"
+version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "489d6c0ed21b11d038c31b6ceccca973e65d73ba3bd8ecb9a2babf5546164643"
+dependencies = [
+ "byteorder",
+ "safemem",
+]
+
+[[package]]
+name = "base64"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b25d992356d2eb0ed82172f5248873db5560c4721f564b13cb5193bda5e668e"
@@ -127,6 +137,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3b5ca7a04898ad4bcd41c90c5285445ff5b791899bb1b0abdd2a2aa791211d7"
 
 [[package]]
+name = "bytecount"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b92204551573580e078dc80017f36a213eb77a0450e4ddd8cfa0f3f2d1f0178f"
+
+[[package]]
 name = "byteorder"
 version = "1.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -148,6 +164,19 @@ name = "bytes"
 version = "0.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "130aac562c0dd69c56b3b1cc8ffd2e17be31d0b6c25b61c96b76231aa23e39e1"
+
+[[package]]
+name = "cargo_metadata"
+version = "0.6.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e5d1b4d380e1bab994591a24c2bdd1b054f64b60bef483a8c598c7c345bc3bbe"
+dependencies = [
+ "error-chain",
+ "semver",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
 
 [[package]]
 name = "cc"
@@ -244,6 +273,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ba125de2af0df55319f41944744ad91c71113bf74a4646efff39afe1f6842db1"
 dependencies = [
  "cfg-if",
+]
+
+[[package]]
+name = "crossbeam-channel"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cced8691919c02aac3cb0a1bc2e9b73d89e832bf9a06fc579d4e71b68a2da061"
+dependencies = [
+ "crossbeam-utils",
+ "maybe-uninit",
 ]
 
 [[package]]
@@ -380,6 +419,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "data-encoding"
+version = "2.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "11c0346158a19b3627234e15596f5e465c360fcdb97d817bcb255e0510f5a788"
+
+[[package]]
 name = "derive_builder"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -423,6 +468,12 @@ checksum = "f3d0c8c8752312f9713efd397ff63acb9f85585afbf179282e720e7704954dd5"
 dependencies = [
  "generic-array",
 ]
+
+[[package]]
+name = "doc-comment"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
 
 [[package]]
 name = "dotenv"
@@ -485,6 +536,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bb1f6b1ce1c140482ea30ddd3335fc0024ac7ee112895426e0a629a6c20adfe3"
 
 [[package]]
+name = "elefren"
+version = "0.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f8ab55b03ec16153542127539b410d6a27a0ec707440699be7b368a3499f8f91"
+dependencies = [
+ "chrono",
+ "doc-comment",
+ "hyper-old-types",
+ "isolang",
+ "log",
+ "reqwest 0.9.24",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_qs",
+ "serde_urlencoded 0.6.1",
+ "skeptic",
+ "tap-reader",
+ "toml",
+ "try_from",
+ "url 1.7.2",
+]
+
+[[package]]
 name = "encoding_rs"
 version = "0.8.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -499,6 +574,7 @@ version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d371106cc88ffdfb1eabd7111e432da544f16f3e2d7bf1dfe8bf575f1df045cd"
 dependencies = [
+ "backtrace",
  "version_check",
 ]
 
@@ -741,6 +817,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "glob"
+version = "0.2.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8be18de09a56b60ed0edf84bc9df007e30040691af7acd1c41874faac5895bfb"
+
+[[package]]
 name = "h2"
 version = "0.1.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -915,6 +997,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "hyper-old-types"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6896be51ecf3966c0fa14ff2da3233dbb9aef57ccea1be1afe55f105f4d4c9c4"
+dependencies = [
+ "base64 0.9.3",
+ "bytes 0.4.12",
+ "httparse",
+ "language-tags",
+ "log",
+ "mime",
+ "percent-encoding 1.0.1",
+ "time",
+ "unicase",
+]
+
+[[package]]
 name = "hyper-rustls"
 version = "0.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1031,6 +1130,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "isolang"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "265ef164908329e47e753c769b14cbb27434abf0c41984dca201484022f09ce5"
+dependencies = [
+ "phf",
+ "phf_codegen",
+ "serde",
+]
+
+[[package]]
 name = "itoa"
 version = "0.4.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1054,6 +1164,12 @@ dependencies = [
  "winapi 0.2.8",
  "winapi-build",
 ]
+
+[[package]]
+name = "language-tags"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a91d884b6667cd606bb5a69aa0c99ba811a115fc68915e7056ec08a46e93199a"
 
 [[package]]
 name = "lazy_static"
@@ -1482,6 +1598,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "pulldown-cmark"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eef52fac62d0ea7b9b4dc7da092aa64ea7ec3d90af6679422d3d7e0e14b6ee15"
+dependencies = [
+ "bitflags",
+]
+
+[[package]]
 name = "quick-xml"
 version = "0.17.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1498,6 +1623,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2bdc6c187c65bca4260c9011c9e3132efe4909da44726bad24cf7572ae338d7f"
 dependencies = [
  "proc-macro2",
+]
+
+[[package]]
+name = "rand"
+version = "0.4.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "552840b97013b1a26992c11eac34bdd778e464601a4c2054b5f0bff7c6761293"
+dependencies = [
+ "fuchsia-cprng",
+ "libc",
+ "rand_core 0.3.1",
+ "rdrand",
+ "winapi 0.3.8",
 ]
 
 [[package]]
@@ -1850,6 +1988,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "535622e6be132bccd223f4bb2b8ac8d53cda3c7a6394944d3b2b33fb974f9d76"
 
 [[package]]
+name = "safemem"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ef703b7cb59335eae2eb93ceb664c0eb7ea6bf567079d843e09420219668e072"
+
+[[package]]
+name = "same-file"
+version = "1.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "93fc1dc3aaa9bfed95e02e6eadabb4baf7e3078b0bd1b4d7b6b0b68378900502"
+dependencies = [
+ "winapi-util",
+]
+
+[[package]]
 name = "schannel"
 version = "0.1.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1939,6 +2092,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d7eb9ef2c18661902cc47e535f9bc51b78acd254da71d375c2f6720d9a40403"
 dependencies = [
  "semver-parser",
+ "serde",
 ]
 
 [[package]]
@@ -1975,6 +2129,18 @@ checksum = "9371ade75d4c2d6cb154141b9752cf3781ec9c05e0e5cf35060e1e70ee7b9c25"
 dependencies = [
  "itoa",
  "ryu",
+ "serde",
+]
+
+[[package]]
+name = "serde_qs"
+version = "0.4.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "35965fa1d2413717053d67c2df1f5c3e1763fbf77200ea7e767523707bd5a0af"
+dependencies = [
+ "data-encoding",
+ "error-chain",
+ "percent-encoding 1.0.1",
  "serde",
 ]
 
@@ -2077,6 +2243,22 @@ name = "siphasher"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b8de496cf83d4ed58b6be86c3a275b8602f6ffe98d3024a869e124147a9a3ac"
+
+[[package]]
+name = "skeptic"
+version = "0.13.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d6fb8ed853fdc19ce09752d63f3a2e5b5158aeb261520cd75eb618bd60305165"
+dependencies = [
+ "bytecount",
+ "cargo_metadata",
+ "error-chain",
+ "glob",
+ "pulldown-cmark",
+ "serde_json",
+ "tempdir",
+ "walkdir",
+]
 
 [[package]]
 name = "slab"
@@ -2193,6 +2375,22 @@ dependencies = [
  "quote",
  "syn",
  "unicode-xid",
+]
+
+[[package]]
+name = "tap-reader"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8f13fc301d415a8cd4529ba679720c59f07369bcff573618a6e8d5afebefb6f3"
+
+[[package]]
+name = "tempdir"
+version = "0.3.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "15f2b5fb00ccdf689e0149d1b1b3c03fead81c2b37735d812fa8bddbbf41b6d8"
+dependencies = [
+ "rand 0.4.6",
+ "remove_dir_all",
 ]
 
 [[package]]
@@ -2488,6 +2686,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "toml"
+version = "0.5.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ffc92d160b1eef40665be3a05630d003936a3bc7da7421277846c2613e92c71a"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "tower-service"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2609,9 +2816,11 @@ dependencies = [
  "anyhow",
  "attohttpc",
  "chrono",
+ "crossbeam-channel",
  "derive_more",
  "dotenv",
  "egg-mode",
+ "elefren",
  "openssl",
  "reqwest 0.9.24",
  "rss",
@@ -2677,6 +2886,17 @@ name = "version_check"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "078775d0255232fb988e6fccf26ddc9d1ac274299aaedcedce21c6f72cc533ce"
+
+[[package]]
+name = "walkdir"
+version = "2.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "777182bc735b6424e1a57516d35ed72cb8019d85c8c9bf536dccb3445c1a2f7d"
+dependencies = [
+ "same-file",
+ "winapi 0.3.8",
+ "winapi-util",
+]
 
 [[package]]
 name = "want"
@@ -2838,6 +3058,15 @@ name = "winapi-i686-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
+
+[[package]]
+name = "winapi-util"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "70ec6ce85bb158151cae5e5c87f95a8e97d2c0c4b001223f33a334e3ce5de178"
+dependencies = [
+ "winapi 0.3.8",
+]
 
 [[package]]
 name = "winapi-x86_64-pc-windows-gnu"
