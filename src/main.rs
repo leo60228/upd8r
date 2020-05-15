@@ -2,8 +2,15 @@
 
 use anyhow::Result;
 use upd8r::*;
+use std::{panic, process};
 
 fn main() -> Result<!> {
+    let orig_hook = panic::take_hook();
+    panic::set_hook(Box::new(move |panic_info| {
+        orig_hook(panic_info);
+        process::exit(1);
+    }));
+
     let discord = discord::start()?;
     let mastodon = mastodon::start().unwrap();
     let senders = vec![discord, mastodon];
