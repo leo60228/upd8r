@@ -73,7 +73,7 @@ impl Feed for Hs2Feed {
                 let doc = Html::parse_document(&text);
                 let update_selector = Selector::parse(".type-center > p").unwrap();
                 let a_selector = Selector::parse("a").unwrap();
-                let updates: Vec<Update> = doc
+                let mut updates: Vec<Update> = doc
                     .select(&update_selector)
                     .filter_map(|update| {
                         let date = update.text().next()?.trim_end_matches(" - ");
@@ -103,6 +103,7 @@ impl Feed for Hs2Feed {
                         })
                     })
                     .collect();
+                updates.sort_by(|a, b| b.id.cmp(&a.id));
                 Ok(Self(updates))
             }
             _ => bail!("{} isn't Homestuck^2!", media),
