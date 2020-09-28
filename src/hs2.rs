@@ -71,7 +71,7 @@ impl Feed for Hs2Feed {
                     .send()?
                     .text()?;
                 let doc = Html::parse_document(&text);
-                let update_selector = Selector::parse(".type-center > p").unwrap();
+                let update_selector = Selector::parse(".mar-y-sm > p").unwrap();
                 let a_selector = Selector::parse("a").unwrap();
                 let mut updates: Vec<Update> = doc
                     .select(&update_selector)
