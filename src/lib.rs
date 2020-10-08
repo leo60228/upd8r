@@ -14,6 +14,7 @@ pub mod discord;
 pub mod event_loop;
 pub mod hs2;
 pub mod mastodon;
+pub mod sb20020;
 pub mod steam;
 pub mod twitter;
 
@@ -29,6 +30,8 @@ pub enum Media {
     HiveswapAct2,
     #[display(fmt = "PesterQuest Twitter")]
     PQTwitter,
+    #[display(fmt = "20020")]
+    Sb20020,
 }
 
 pub const MEDIA_LIST: &[Media] = &[
@@ -37,6 +40,7 @@ pub const MEDIA_LIST: &[Media] = &[
     Media::HiveswapAct2,
     Media::PQTwitter,
     Media::Homestuck2Bonus,
+    Media::Sb20020,
 ];
 
 #[derive(Clone, PartialEq, Eq, Hash, Debug)]
@@ -60,6 +64,8 @@ impl Update {
         static LOAD_HIVESWAP_A2: Once = Once::new();
         static LATEST_PQ_TWEET: AtomicU64 = AtomicU64::new(0);
         static LOAD_PQ_TWEET: Once = Once::new();
+        static LATEST_20020: AtomicU64 = AtomicU64::new(0);
+        static LOAD_20020: Once = Once::new();
         let (latest, load, filename) = match self.media {
             Media::Homestuck2 => (&LATEST_HS2, &LOAD_HS2, "latest_hs2_upd8"),
             Media::Homestuck2Bonus => (&LATEST_HS2_BONUS, &LOAD_HS2_BONUS, "latest_hs2_bonus_upd8"),
@@ -70,6 +76,7 @@ impl Update {
                 "latest_hiveswap_a2_upd8",
             ),
             Media::PQTwitter => (&LATEST_PQ_TWEET, &LOAD_PQ_TWEET, "latest_pq_tweet"),
+            Media::Sb20020 => (&LATEST_20020, &LOAD_20020, "latest_20020_upd8"),
         };
         load.call_once(|| {
             let _: Result<()> = (|| {
@@ -143,6 +150,7 @@ pub fn check_for_update(media: &Media) -> Result<Option<Update>> {
         Media::Homestuck2 | Media::Homestuck2Bonus => upd8!(hs2::Hs2Feed, media),
         Media::PQSteam | Media::HiveswapAct2 => upd8!(steam::AppNews, media),
         Media::PQTwitter => upd8!(twitter::TwitterFeed, media),
+        Media::Sb20020 => upd8!(sb20020::SbFeed, media),
     };
     if update.latest()? {
         Ok(Some(update))
