@@ -31,6 +31,14 @@ pub enum Media {
     PQTwitter,
 }
 
+pub const MEDIA_LIST: &[Media] = &[
+    Media::Homestuck2,
+    Media::PQSteam,
+    Media::HiveswapAct2,
+    Media::PQTwitter,
+    Media::Homestuck2Bonus,
+];
+
 #[derive(Clone, PartialEq, Eq, Hash, Debug)]
 pub struct Update {
     pub id: u64, // monotonically increasing

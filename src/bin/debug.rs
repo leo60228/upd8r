@@ -2,13 +2,7 @@ use anyhow::Result;
 use upd8r::*;
 
 fn main() -> Result<()> {
-    for media in &[
-        Media::Homestuck2,
-        Media::PQSteam,
-        Media::HiveswapAct2,
-        Media::PQTwitter,
-        Media::Homestuck2Bonus,
-    ] {
+    for media in MEDIA_LIST {
         println!("Checking for {} updates...", media);
         match check_for_update(media) {
             Ok(Some(upd8)) => {

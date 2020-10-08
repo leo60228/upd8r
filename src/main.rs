@@ -1,8 +1,8 @@
 #![feature(never_type)]
 
 use anyhow::Result;
-use upd8r::*;
 use std::{panic, process};
+use upd8r::*;
 
 fn main() -> Result<!> {
     let orig_hook = panic::take_hook();
