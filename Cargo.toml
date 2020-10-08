@@ -41,3 +41,7 @@ features = ["derive"]
 version = "0.12.0"
 features = ["json", "tls-rustls", "compress"]
 default-features = false
+
+[profile.release]
+opt-level = 1
+lto = "off"
