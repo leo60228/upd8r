@@ -1,20 +1,15 @@
+{ pkgs ? import <nixpkgs> {} }:
 let
     sources = import ./nix/sources.nix;
-    nixpkgs-mozilla = import sources.nixpkgs-mozilla;
-    pkgs = import <nixpkgs> {
-        overlays = [
-            nixpkgs-mozilla
-            (self: super: rec {
-                rustChannel = self.rustChannelOf {
-                    date = "2020-11-12";
-                    channel = "nightly";
-                };
-                rustc = rustChannel.rust;
-                cargo = rustc;
-            })
-        ];
+    nixpkgs-mozilla = import sources.nixpkgs-mozilla pkgs pkgs;
+    rustChannel = nixpkgs-mozilla.rustChannelOf {
+        date = "2020-11-12";
+        channel = "nightly";
     };
-    naersk = pkgs.callPackage sources.naersk {};
+    naersk = pkgs.callPackage sources.naersk rec {
+        rustc = rustChannel.rust;
+        cargo = rustc;
+    };
     inherit (import sources.gitignore { inherit (pkgs) lib; }) gitignoreSource;
 in naersk.buildPackage {
     src = gitignoreSource ./.;
