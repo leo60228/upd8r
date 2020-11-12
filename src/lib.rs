@@ -26,8 +26,10 @@ pub enum Media {
     Homestuck2Bonus,
     #[display(fmt = "PesterQuest")]
     PQSteam,
-    #[display(fmt = "Hiveswap Act 2")]
-    HiveswapAct2,
+    #[display(fmt = "Hiveswap Act 2 news")]
+    HiveswapAct2News,
+    #[display(fmt = "Hiveswap Act 2 Steam")]
+    HiveswapAct2Steam,
     #[display(fmt = "PesterQuest Twitter")]
     PQTwitter,
     #[display(fmt = "20020")]
@@ -37,7 +39,8 @@ pub enum Media {
 pub const MEDIA_LIST: &[Media] = &[
     Media::Homestuck2,
     Media::PQSteam,
-    Media::HiveswapAct2,
+    Media::HiveswapAct2News,
+    Media::HiveswapAct2Steam,
     Media::PQTwitter,
     Media::Homestuck2Bonus,
     Media::Sb20020,
@@ -60,8 +63,10 @@ impl Update {
         static LOAD_HS2_BONUS: Once = Once::new();
         static LATEST_PQ: AtomicU64 = AtomicU64::new(0);
         static LOAD_PQ: Once = Once::new();
-        static LATEST_HIVESWAP_A2: AtomicU64 = AtomicU64::new(0);
-        static LOAD_HIVESWAP_A2: Once = Once::new();
+        static LATEST_HIVESWAP_A2_NEWS: AtomicU64 = AtomicU64::new(0);
+        static LOAD_HIVESWAP_A2_NEWS: Once = Once::new();
+        static LATEST_HIVESWAP_A2_STEAM: AtomicU64 = AtomicU64::new(0);
+        static LOAD_HIVESWAP_A2_STEAM: Once = Once::new();
         static LATEST_PQ_TWEET: AtomicU64 = AtomicU64::new(0);
         static LOAD_PQ_TWEET: Once = Once::new();
         static LATEST_20020: AtomicU64 = AtomicU64::new(0);
@@ -70,10 +75,15 @@ impl Update {
             Media::Homestuck2 => (&LATEST_HS2, &LOAD_HS2, "latest_hs2_upd8"),
             Media::Homestuck2Bonus => (&LATEST_HS2_BONUS, &LOAD_HS2_BONUS, "latest_hs2_bonus_upd8"),
             Media::PQSteam => (&LATEST_PQ, &LOAD_PQ, "latest_pq_upd8"),
-            Media::HiveswapAct2 => (
-                &LATEST_HIVESWAP_A2,
-                &LOAD_HIVESWAP_A2,
-                "latest_hiveswap_a2_upd8",
+            Media::HiveswapAct2News => (
+                &LATEST_HIVESWAP_A2_NEWS,
+                &LOAD_HIVESWAP_A2_NEWS,
+                "latest_hiveswap_a2_news_upd8",
+            ),
+            Media::HiveswapAct2Steam => (
+                &LATEST_HIVESWAP_A2_STEAM,
+                &LOAD_HIVESWAP_A2_STEAM,
+                "latest_hiveswap_a2_steam_upd8",
             ),
             Media::PQTwitter => (&LATEST_PQ_TWEET, &LOAD_PQ_TWEET, "latest_pq_tweet"),
             Media::Sb20020 => (&LATEST_20020, &LOAD_20020, "latest_20020_upd8"),
@@ -148,7 +158,8 @@ macro_rules! upd8 {
 pub fn check_for_update(media: &Media) -> Result<Option<Update>> {
     let update = match media {
         Media::Homestuck2 | Media::Homestuck2Bonus => upd8!(hs2::Hs2Feed, media),
-        Media::PQSteam | Media::HiveswapAct2 => upd8!(steam::AppNews, media),
+        Media::PQSteam | Media::HiveswapAct2News => upd8!(steam::AppNews, media),
+        Media::HiveswapAct2Steam => upd8!(steam::AppChanges, media),
         Media::PQTwitter => upd8!(twitter::TwitterFeed, media),
         Media::Sb20020 => upd8!(sb20020::SbFeed, media),
     };
