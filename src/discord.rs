@@ -13,7 +13,7 @@ impl Handler {
             .http
             .get_channel(CHANNEL_ID)?
             .guild()
-            .ok_or_else(|| anyhow!("Channel {} not a guild channel!"))?;
+            .ok_or_else(|| anyhow!("Channel {} not a guild channel!", CHANNEL_ID))?;
 
         loop {
             let upd8_str = self.0.recv()?;

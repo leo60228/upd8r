@@ -1,4 +1,4 @@
-#![feature(atomic_min_max, never_type)]
+#![feature(never_type)]
 
 use anyhow::Result;
 use derive_more::Display;
@@ -14,9 +14,7 @@ pub mod discord;
 pub mod event_loop;
 pub mod hs2;
 pub mod mastodon;
-pub mod sb20020;
 pub mod steam;
-pub mod twitter;
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Display)]
 pub enum Media {
@@ -30,10 +28,6 @@ pub enum Media {
     HiveswapAct2News,
     #[display(fmt = "Hiveswap Act 2 Steam")]
     HiveswapAct2Steam,
-    #[display(fmt = "PesterQuest Twitter")]
-    PQTwitter,
-    #[display(fmt = "20020")]
-    Sb20020,
 }
 
 pub const MEDIA_LIST: &[Media] = &[
@@ -41,9 +35,7 @@ pub const MEDIA_LIST: &[Media] = &[
     Media::PQSteam,
     Media::HiveswapAct2News,
     Media::HiveswapAct2Steam,
-    Media::PQTwitter,
     Media::Homestuck2Bonus,
-    Media::Sb20020,
 ];
 
 #[derive(Clone, PartialEq, Eq, Hash, Debug)]
@@ -67,10 +59,6 @@ impl Update {
         static LOAD_HIVESWAP_A2_NEWS: Once = Once::new();
         static LATEST_HIVESWAP_A2_STEAM: AtomicU64 = AtomicU64::new(0);
         static LOAD_HIVESWAP_A2_STEAM: Once = Once::new();
-        static LATEST_PQ_TWEET: AtomicU64 = AtomicU64::new(0);
-        static LOAD_PQ_TWEET: Once = Once::new();
-        static LATEST_20020: AtomicU64 = AtomicU64::new(0);
-        static LOAD_20020: Once = Once::new();
         let (latest, load, filename) = match self.media {
             Media::Homestuck2 => (&LATEST_HS2, &LOAD_HS2, "latest_hs2_upd8"),
             Media::Homestuck2Bonus => (&LATEST_HS2_BONUS, &LOAD_HS2_BONUS, "latest_hs2_bonus_upd8"),
@@ -85,8 +73,6 @@ impl Update {
                 &LOAD_HIVESWAP_A2_STEAM,
                 "latest_hiveswap_a2_steam_upd8",
             ),
-            Media::PQTwitter => (&LATEST_PQ_TWEET, &LOAD_PQ_TWEET, "latest_pq_tweet"),
-            Media::Sb20020 => (&LATEST_20020, &LOAD_20020, "latest_20020_upd8"),
         };
         load.call_once(|| {
             let _: Result<()> = (|| {
@@ -160,8 +146,6 @@ pub fn check_for_update(media: &Media) -> Result<Option<Update>> {
         Media::Homestuck2 | Media::Homestuck2Bonus => upd8!(hs2::Hs2Feed, media),
         Media::PQSteam | Media::HiveswapAct2News => upd8!(steam::AppNews, media),
         Media::HiveswapAct2Steam => upd8!(steam::AppChanges, media),
-        Media::PQTwitter => upd8!(twitter::TwitterFeed, media),
-        Media::Sb20020 => upd8!(sb20020::SbFeed, media),
     };
     if update.latest()? {
         Ok(Some(update))

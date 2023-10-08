@@ -90,8 +90,8 @@ impl Feed for Hs2Feed {
                         let d = date_segments.next()?.parse().ok()?;
                         let y = date_segments.next()?.parse().ok()?;
 
-                        let date = NaiveDate::from_ymd(y, m, d);
-                        let datetime = date.and_hms(0, 0, 0);
+                        let date = NaiveDate::from_ymd_opt(y, m, d).unwrap();
+                        let datetime = date.and_hms_opt(0, 0, 0).unwrap();
                         let id = datetime.timestamp() as _;
 
                         Some(Update {

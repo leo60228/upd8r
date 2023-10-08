@@ -3,3 +3,4 @@ latest_*_upd8
 latest_*_tweet
 .env
 mastodon-data.toml
+.direnv

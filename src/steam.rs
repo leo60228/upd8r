@@ -55,7 +55,7 @@ impl Feed for AppNews {
         let url = match media {
             Media::PQSteam => "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=1144030&count=999999&maxlength=1&format=json",
             Media::HiveswapAct2News => "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=1181840&count=999999&maxlength=1&format=json",
-            _ => return Err(anyhow!("{} not on Steam!")),
+            _ => return Err(anyhow!("{:?} not on Steam!", media)),
         };
         #[derive(Deserialize)]
         struct Response {
@@ -87,7 +87,7 @@ impl Feed for AppChanges {
     fn fetch(media: &Media) -> Result<Self> {
         let app_id = match media {
             Media::HiveswapAct2Steam => 1181840,
-            _ => return Err(anyhow!("{} not on Steam!")),
+            _ => return Err(anyhow!("{:?} not on Steam!", media)),
         };
         let api_url = format!("https://steamappinfo.leo60228.space/productinfo/{}", app_id);
         let steam_url = format!("https://store.steampowered.com/app/{}", app_id);
