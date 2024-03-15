@@ -35,7 +35,7 @@ pub const MEDIA_LIST: &[Media] = &[
     Media::PQSteam,
     Media::HiveswapAct2News,
     Media::HiveswapAct2Steam,
-    Media::Homestuck2Bonus,
+    //Media::Homestuck2Bonus,
 ];
 
 #[derive(Clone, PartialEq, Eq, Hash, Debug)]
