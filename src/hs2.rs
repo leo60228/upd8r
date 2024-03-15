@@ -55,7 +55,7 @@ impl Feed for Hs2Feed {
     fn fetch(media: &Media) -> Result<Self> {
         match media {
             &Media::Homestuck2 => {
-                let channel = Channel::from_url("https://homestuck2.com/story/rss")
+                let channel = Channel::from_url("https://beyondcanon.com/story/feed?type=rss")
                     .context("Failed to fetch RSS feed")?;
                 let mut items: Vec<_> = channel.items().iter().rev().cloned().collect();
                 items.dedup_by_key(|item| hash(item.pub_date()));
