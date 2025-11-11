@@ -15,7 +15,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ rust-overlay.overlays.default naersk.overlay ];
+          overlays = [ rust-overlay.overlays.default naersk.overlays.default ];
         };
         rust = pkgs.rust-bin.nightly.latest.default;
         inherit (pkgs.rust-bin.nightly.latest) cargo;
@@ -28,7 +28,7 @@
         };
       in rec {
         packages = {
-          upd8r = naersk-lib.buildPackage rec {
+          upd8r = naersk-lib.buildPackage {
             name = "upd8r";
             version = "unstable";
             root = ./.;
@@ -56,7 +56,7 @@
 
         devShell = pkgs.mkShell {
           inputsFrom = packages.upd8r.builtDependencies;
-          nativeBuildInputs = with pkgs; [ rust-dev ];
+          nativeBuildInputs = [ rust-dev ];
         };
       }
     );
